@@ -17,6 +17,9 @@ return [
         'guard' => env('AUTH_GUARD', 'web'),
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
     ],
+    // Add Sanctum guard for API routes
+   
+
 
     /*
     |--------------------------------------------------------------------------

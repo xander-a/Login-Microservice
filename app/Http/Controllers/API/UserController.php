@@ -9,20 +9,18 @@ use Throwable;
 use Validator;
 use App\Models\User;
 
+
 class UserController extends Controller
 {
 
-    public function index(){
-
-    }
 
     public function createUser (Request $request){
         try {
 
             $validateUser = Validator::make($request->all(),[
-                'name' => 'required',
+                'name' => 'required|string|min:10',
                 'email' => 'required|email',
-                'password' => 'required'
+                'password' => 'required|min:10|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/'
             ]);
 
             if($validateUser->fails()){
@@ -39,8 +37,8 @@ class UserController extends Controller
             ]);
 
             return response()->json(
-                ['message' => 'User created successfully',
-                'token' => $user->createToken('API TOKEN')->plainTextToken],200
+                ['message' => 'User created successfully']
+                
             );
         }
         catch(Throwable $e){
@@ -53,7 +51,7 @@ class UserController extends Controller
         try {
             $validateUser = Validator::make($request->all(),[
                 'email' => 'required|email',
-                'password' => 'required'
+                'password' => 'required|min:10|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/'
             ]);
 
             if($validateUser->fails()){
@@ -76,4 +74,5 @@ class UserController extends Controller
 
         }
     }
+    
 }
